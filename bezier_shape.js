@@ -9,6 +9,9 @@ function Bezier_shape(options) {
   // point cloud
   t.points = [];
 
+  t.multiplier = 3;
+  t.roundingHeight = 4;
+
   t.init = function () {
     // rozdel text na spany
     t.spanning();
@@ -19,8 +22,11 @@ function Bezier_shape(options) {
     // zisti body
     t.setup_points();
 
+    // zaobli rohy
+    t.round_edges();
+
     // nakresli krivku
-    //t.draw_shape();
+    // t.draw_shape();
   };
 
   t.draw_shape = function () {
@@ -93,6 +99,44 @@ function Bezier_shape(options) {
     t.debug_points(points2, "#ff6600");
     const points3 = t.annectBorder(points2, 10);
     t.debug_points(points3, "#00ff00");
+    t.points = points3;
+  };
+
+  t.round_edges = function () {
+    for (let i = 0; i < t.points.length - 1; i++) {
+      const prev = i == 0 ? t.points[t.points.length - 1] : t.points[i - 1];
+      const akt = t.points[i];
+      const next = i == t.points.length - 1 ? t.points[0] : t.points[i + 1];
+
+      var hDirection, vDirection, dx1, dy1, dx2, dy2;
+      if (Math.abs(akt[1] - prev[1]) < Math.abs(akt[1] - next[1])) {
+        hDirection = akt[0] - prev[0] < 0 ? 1 : -1;
+        vDirection = prev[1] - next[1] > 0 || prev[0] - next[0] < 0 ? 1 : -1;
+        dx1 = akt[0] + hDirection * (Math.abs(prev[0] - akt[0]) / 2 * (1 / t.multiplier));
+        dy1 = akt[1] + vDirection * t.roundingHeight;
+      } else {
+        hDirection = prev[0] - next[0] < 0 && prev[1] - next[1] <0 ? -1 : 1;
+        vDirection = akt[1] - prev[1] < 0  ? 1 : -1;
+        dx1 = akt[0] + hDirection * t.roundingHeight;
+        dy1 = akt[1] + vDirection * (Math.abs(akt[1] - prev[1]) / 2 * (1 / t.multiplier));;
+      }
+
+      if (Math.abs(akt[1] - prev[1]) > Math.abs(akt[1] - next[1])) {
+        hDirection = akt[0] - next[0] < 0 ? 1 : -1;
+        vDirection = prev[1] - next[1] > 0 || prev[0] - next[0] < 0 ? 1 : -1; // TODO
+        dx2 = akt[0] + hDirection * (Math.abs(next[0] - akt[0]) / 2 * (1 / t.multiplier));
+        dy2 = akt[1] + vDirection * t.roundingHeight;
+      } else {
+        hDirection = prev[0] - next[0] && akt[1] - next[1] < 0 ? -1 : 1;
+        vDirection = akt[1] - next[1] < 0  ? 1 : -1;
+        dx2 = akt[0] + hDirection * t.roundingHeight;
+        dy2 = akt[1] + vDirection * (Math.abs(akt[1] - next[1]) / 2 * (1 / t.multiplier));;
+      }
+
+      console.log(dx1, dy1, dx2, dy2);
+      t.debug_points([[dx1, dy1]], "#bc0af8");
+      t.debug_points([[dx2, dy2]], "#ff00f3");
+    }
   };
 
   t.linesToPoints = function (lines) {
@@ -141,9 +185,6 @@ function Bezier_shape(options) {
       const prew = points[i - 1];
       const akt = points[i];
       const next = points[i + 1];
-      t.debug_points([prew],'#e69c09')
-      t.debug_points([akt],'#02fff2')
-      t.debug_points([next],'#11cf47')
       if (akt[0] < prew[0]) {
         points2.push(
           add(
@@ -157,7 +198,7 @@ function Bezier_shape(options) {
           add(
             akt,
             prew[0] - next[0] < 0 && prew[1] - next[1] < 0 ? -offset : +offset,
-            prew[1] - next[1] < 0 && prew[1] - next[1] < 0 ? +offset : -offset
+            prew[1] - next[1] < 0 || prew[0] - next[0] < 0 ? +offset : -offset
           )
         );
       }
