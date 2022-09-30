@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+</head>
+<style>
+    h1  {
+        margin: 20px;
+        font-size: 70px;
+        font-family: sans-serif;
+        text-align: center;
+    }
+    span    {
+        background-color: rgba(0, 0, 255, .2);
+    }
+    canvas  {
+        background-color: rgba( 200, 0, 0, .2);
+    }
+</style>
+<body>
+
+<div class="hero">
+    <h1 id="shaper">Toto je super titulok, ktorý niekto editoval</h1>
+</div>
+
+<script src="bezier_shape.js"></script>
+<script>
+    const shape = new Bezier_shape({
+        selector: 'shaper'
+    } );
+</script>
+</body>
+</html>
