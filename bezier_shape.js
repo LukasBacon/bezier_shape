@@ -8,6 +8,7 @@ function Bezier_shape(options) {
 
   // point cloud
   t.points = [];
+  t.bezierShapePoints = {};
 
   t.multiplier = 3;
   t.roundingHeight = 4;
@@ -26,41 +27,146 @@ function Bezier_shape(options) {
     t.round_edges();
 
     // nakresli krivku
-    // t.draw_shape();
+    t.draw_shape();
   };
 
   t.draw_shape = function () {
+    // input points
+    /*const bezierShapePoints = {
+      "points": [
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 40,
+              "coordinateY": 40
+            },
+            "firstControlPoint": {
+              "coordinateX": 45,
+              "coordinateY": 30
+            },
+            "secondControlPoint": {
+              "coordinateX": 55,
+              "coordinateY": 18
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 70,
+              "coordinateY": 20
+            },
+            "firstControlPoint": {
+              "coordinateX": 80,
+              "coordinateY": 15
+            },
+            "secondControlPoint": {
+              "coordinateX": 100,
+              "coordinateY": 15
+            }
+          }
+        },
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 110,
+              "coordinateY": 20
+            },
+            "firstControlPoint": {
+              "coordinateX": 125,
+              "coordinateY": 10
+            },
+            "secondControlPoint": {
+              "coordinateX": 145,
+              "coordinateY": 20
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 150,
+              "coordinateY": 25
+            },
+            "firstControlPoint": {
+              "coordinateX": 160,
+              "coordinateY": 30
+            },
+            "secondControlPoint": {
+              "coordinateX": 160,
+              "coordinateY": 50
+            }
+          }
+        },
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 150,
+              "coordinateY": 55
+            },
+            "firstControlPoint": {
+              "coordinateX": 130,
+              "coordinateY": 60
+            },
+            "secondControlPoint": {
+              "coordinateX": 100,
+              "coordinateY": 60
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 80,
+              "coordinateY": 55
+            },
+            "firstControlPoint": {
+              "coordinateX": 70,
+              "coordinateY": 50
+            },
+            "secondControlPoint": {
+              "coordinateX": 50,
+              "coordinateY": 45
+            }
+          }
+        }
+      ]
+    };*/
     const context = t.c.getContext("2d");
     context.beginPath();
-    context.moveTo(t.points[0][0], t.points[0][1]);
+    let firstPoint = {};
+    let firstControlPoint = {};
+    let secondControlPoint = {};
+    let endPoint = {};
 
-    const multiplier = 3;
-
-    for (let i = 1; i < t.points.length - 1; i++) {
-      const ep = t.points[i];
-      const dx1 = ep[0] - Math.abs(t.points[i - 1][0] - ep[0]) / multiplier;
-      const dy1 = ep[1];
-
-      const dx2 = ep[0];
-      const dy2 = ep[1] + Math.abs(t.points[i + 1][1] - ep[1]) / multiplier;
-      console.log(dx1, dy1, dx2, dy2);
-      // context.bezierCurveTo( ep[ 0 ], ep[ 1 ], ep[ 0 ], ep[ 1 ], ep[ 0 ], ep[ 1 ] );
-      context.bezierCurveTo(ep[0], ep[1], ep[0], ep[1], dx1, dy1);
-      context.bezierCurveTo(ep[0], ep[1], ep[0], ep[1], dx2, dy2);
+    function drawBezier() {
+      context.bezierCurveTo(
+          firstControlPoint.coordinateX, firstControlPoint.coordinateY,
+          secondControlPoint.coordinateX, secondControlPoint.coordinateY,
+          endPoint.coordinateX, endPoint.coordinateY
+      );
+      console.log(firstControlPoint.coordinateX +','+ firstControlPoint.coordinateY +','+
+          secondControlPoint.coordinateX +','+ secondControlPoint.coordinateY +','+
+          endPoint.coordinateX +','+ endPoint.coordinateY)
     }
 
-    context.bezierCurveTo(
-      t.points[0][0],
-      t.points[0][1],
-      t.points[0][0],
-      t.points[0][1],
-      t.points[0][0],
-      t.points[0][1]
-    );
+    function processPoint(point) {
+      if (firstPoint.coordinateX  === undefined) {
+        firstPoint = point.firstPoint.coordinates;
+        context.moveTo(firstPoint.coordinateX, firstPoint.coordinateY);
+      } else {
+        endPoint = point.firstPoint.coordinates;
+        drawBezier();
+      }
+      firstControlPoint = point.firstPoint.firstControlPoint;
+      secondControlPoint = point.firstPoint.secondControlPoint;
+      endPoint = point.secondPoint.coordinates;
+      drawBezier();
+      firstControlPoint = point.secondPoint.firstControlPoint;
+      secondControlPoint = point.secondPoint.secondControlPoint;
+    }
 
-    context.lineWidth = 3;
-    context.strokeStyle = "#000000";
-    context.stroke();
+    t.bezierShapePoints.points.forEach(processPoint);
+    endPoint = firstPoint;
+    drawBezier();
+
+    context.fillStyle = "red";
+    context.globalAlpha = 0.2;
+    context.fill();
   };
 
   t.debug_points = function (debug_points, color) {

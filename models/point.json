@@ -1,0 +1,24 @@
+{
+  "title": "point",
+  "x-stoplight": {
+    "id": "3tghvqe662537"
+  },
+  "type": "object",
+  "examples": [],
+  "description": "",
+  "properties": {
+    "coordinates": {
+      "$ref": "./coordinates.json"
+    },
+    "firstControlPoint": {
+      "$ref": "./coordinates.json"
+    },
+    "secondControlPoint": {
+      "$ref": "./coordinates.json"
+    }
+  },
+  "required": [
+    "coordinates",
+    "firstControlPoint"
+  ]
+}

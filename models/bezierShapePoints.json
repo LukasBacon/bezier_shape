@@ -1,0 +1,120 @@
+{
+  "title": "bezierShapePoints",
+  "x-stoplight": {
+    "id": "obv74yx8b7rvj"
+  },
+  "type": "object",
+  "description": "",
+  "examples": [
+    {
+      "points": [
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 40,
+              "coordinateY": 40
+            },
+            "firstControlPoint": {
+              "coordinateX": 45,
+              "coordinateY": 30
+            },
+            "secondControlPoint": {
+              "coordinateX": 55,
+              "coordinateY": 18
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 70,
+              "coordinateY": 20
+            },
+            "firstControlPoint": {
+              "coordinateX": 80,
+              "coordinateY": 15
+            },
+            "secondControlPoint": {
+              "coordinateX": 100,
+              "coordinateY": 15
+            }
+          }
+        },
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 110,
+              "coordinateY": 20
+            },
+            "firstControlPoint": {
+              "coordinateX": 125,
+              "coordinateY": 10
+            },
+            "secondControlPoint": {
+              "coordinateX": 145,
+              "coordinateY": 20
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 150,
+              "coordinateY": 25
+            },
+            "firstControlPoint": {
+              "coordinateX": 160,
+              "coordinateY": 30
+            },
+            "secondControlPoint": {
+              "coordinateX": 160,
+              "coordinateY": 50
+            }
+          }
+        },
+        {
+          "firstPoint": {
+            "coordinates": {
+              "coordinateX": 150,
+              "coordinateY": 55
+            },
+            "firstControlPoint": {
+              "coordinateX": 130,
+              "coordinateY": 60
+            },
+            "secondControlPoint": {
+              "coordinateX": 100,
+              "coordinateY": 60
+            }
+          },
+          "secondPoint": {
+            "coordinates": {
+              "coordinateX": 80,
+              "coordinateY": 55
+            },
+            "firstControlPoint": {
+              "coordinateX": 70,
+              "coordinateY": 50
+            },
+            "secondControlPoint": {
+              "coordinateX": 50,
+              "coordinateY": 45
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "properties": {
+    "points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "firstPoint": {
+            "$ref": "./point.json"
+          },
+          "secondPoint": {
+            "$ref": "./point.json"
+          }
+        }
+      }
+    }
+  }
+}
