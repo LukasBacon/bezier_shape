@@ -8,7 +8,7 @@ function Bezier_shape(options) {
 
   // point cloud
   t.points = [];
-  t.bezierShapePoints = {};
+  t.bezierShapePoints = [];
 
   t.multiplier = 3;
   t.roundingHeight = 4;
@@ -25,6 +25,7 @@ function Bezier_shape(options) {
 
     // zaobli rohy
     t.round_edges();
+    console.log(t.bezierShapePoints);
 
     // nakresli krivku
     t.draw_shape();
@@ -224,24 +225,25 @@ function Bezier_shape(options) {
         hDirection = prev[0] - next[0] < 0 && prev[1] - next[1] <0 ? -1 : 1;
         vDirection = akt[1] - prev[1] < 0  ? 1 : -1;
         dx1 = akt[0] + hDirection * t.roundingHeight;
-        dy1 = akt[1] + vDirection * (Math.abs(akt[1] - prev[1]) / 2 * (1 / t.multiplier));;
+        dy1 = akt[1] + vDirection * (Math.abs(akt[1] - prev[1]) / 2 * (1 / t.multiplier));
       }
 
       if (Math.abs(akt[1] - prev[1]) > Math.abs(akt[1] - next[1])) {
         hDirection = akt[0] - next[0] < 0 ? 1 : -1;
-        vDirection = prev[1] - next[1] < 0 || prev[0] - next[0] < 0 ? 1 : -1; // TODO
+        vDirection = prev[1] - next[1] < 0 || prev[0] - next[0] < 0 ? 1 : -1;
         dx2 = akt[0] + hDirection * (Math.abs(next[0] - akt[0]) / 2 * (1 / t.multiplier));
         dy2 = akt[1] + vDirection * t.roundingHeight;
       } else {
         hDirection = prev[0] - next[0] && akt[1] - next[1] < 0 ? -1 : 1;
         vDirection = akt[1] - next[1] < 0  ? 1 : -1;
         dx2 = akt[0] + hDirection * t.roundingHeight;
-        dy2 = akt[1] + vDirection * (Math.abs(akt[1] - next[1]) / 2 * (1 / t.multiplier));;
+        dy2 = akt[1] + vDirection * (Math.abs(akt[1] - next[1]) / 2 * (1 / t.multiplier));
       }
 
-      console.log(dx1, dy1, dx2, dy2);
       t.debug_points([[dx1, dy1]], "#bc0af8");
       t.debug_points([[dx2, dy2]], "#ff00f3");
+      t.bezierShapePoints.push([dx1, dy1]);
+      t.bezierShapePoints.push([dx2, dy2]);
     }
   };
 
