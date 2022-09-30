@@ -161,7 +161,6 @@ function Bezier_shape(options) {
     drawBezier();
 
     context.fillStyle = "red";
-    context.globalAlpha = 0.2;
     context.fill();
   };
 
@@ -369,7 +368,6 @@ function Bezier_shape(options) {
     t.c.style.left = "-" + t.offset + "px";
     t.c.setAttribute("width", t.el.offsetWidth + t.offset * 2);
     t.c.setAttribute("height", t.el.offsetHeight + t.offset * 2);
-    t.c.style.zIndex = 101;
     t.el.appendChild(t.c);
   };
 
