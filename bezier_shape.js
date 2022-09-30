@@ -205,6 +205,7 @@ function Bezier_shape(options) {
   };
 
   t.round_edges = function () {
+    t.bezierShapePoints = [];
     for (let i = 0; i < t.points.length; i++) {
       const prev = i == 0 ? t.points[t.points.length - 1] : t.points[i - 1];
       const akt = t.points[i];
