@@ -8,7 +8,98 @@ function Bezier_shape(options) {
 
   // point cloud
   t.points = [];
-  t.bezierShapePoints = [];
+  t.bezierShapePoints = [
+    {
+      "firstPoint": {
+        "coordinates": {
+          "coordinateX": 40,
+          "coordinateY": 40
+        },
+        "firstControlPoint": {
+          "coordinateX": 45,
+          "coordinateY": 30
+        },
+        "secondControlPoint": {
+          "coordinateX": 55,
+          "coordinateY": 18
+        }
+      },
+      "secondPoint": {
+        "coordinates": {
+          "coordinateX": 70,
+          "coordinateY": 20
+        },
+        "firstControlPoint": {
+          "coordinateX": 80,
+          "coordinateY": 15
+        },
+        "secondControlPoint": {
+          "coordinateX": 100,
+          "coordinateY": 15
+        }
+      }
+    },
+    {
+      "firstPoint": {
+        "coordinates": {
+          "coordinateX": 110,
+          "coordinateY": 20
+        },
+        "firstControlPoint": {
+          "coordinateX": 125,
+          "coordinateY": 10
+        },
+        "secondControlPoint": {
+          "coordinateX": 145,
+          "coordinateY": 20
+        }
+      },
+      "secondPoint": {
+        "coordinates": {
+          "coordinateX": 150,
+          "coordinateY": 25
+        },
+        "firstControlPoint": {
+          "coordinateX": 160,
+          "coordinateY": 30
+        },
+        "secondControlPoint": {
+          "coordinateX": 160,
+          "coordinateY": 50
+        }
+      }
+    },
+    {
+      "firstPoint": {
+        "coordinates": {
+          "coordinateX": 150,
+          "coordinateY": 55
+        },
+        "firstControlPoint": {
+          "coordinateX": 130,
+          "coordinateY": 60
+        },
+        "secondControlPoint": {
+          "coordinateX": 100,
+          "coordinateY": 60
+        }
+      },
+      "secondPoint": {
+        "coordinates": {
+          "coordinateX": 80,
+          "coordinateY": 55
+        },
+        "firstControlPoint": {
+          "coordinateX": 70,
+          "coordinateY": 50
+        },
+        "secondControlPoint": {
+          "coordinateX": 50,
+          "coordinateY": 45
+        }
+      }
+    }
+  ];
 
   t.multiplier = 3;
   t.roundingHeight = 4;
@@ -25,108 +116,12 @@ function Bezier_shape(options) {
 
     // zaobli rohy
     t.round_edges();
-    console.log(t.bezierShapePoints);
 
     // nakresli krivku
     t.draw_shape();
   };
 
   t.draw_shape = function () {
-    // input points
-    /*const bezierShapePoints = {
-      "points": [
-        {
-          "firstPoint": {
-            "coordinates": {
-              "coordinateX": 40,
-              "coordinateY": 40
-            },
-            "firstControlPoint": {
-              "coordinateX": 45,
-              "coordinateY": 30
-            },
-            "secondControlPoint": {
-              "coordinateX": 55,
-              "coordinateY": 18
-            }
-          },
-          "secondPoint": {
-            "coordinates": {
-              "coordinateX": 70,
-              "coordinateY": 20
-            },
-            "firstControlPoint": {
-              "coordinateX": 80,
-              "coordinateY": 15
-            },
-            "secondControlPoint": {
-              "coordinateX": 100,
-              "coordinateY": 15
-            }
-          }
-        },
-        {
-          "firstPoint": {
-            "coordinates": {
-              "coordinateX": 110,
-              "coordinateY": 20
-            },
-            "firstControlPoint": {
-              "coordinateX": 125,
-              "coordinateY": 10
-            },
-            "secondControlPoint": {
-              "coordinateX": 145,
-              "coordinateY": 20
-            }
-          },
-          "secondPoint": {
-            "coordinates": {
-              "coordinateX": 150,
-              "coordinateY": 25
-            },
-            "firstControlPoint": {
-              "coordinateX": 160,
-              "coordinateY": 30
-            },
-            "secondControlPoint": {
-              "coordinateX": 160,
-              "coordinateY": 50
-            }
-          }
-        },
-        {
-          "firstPoint": {
-            "coordinates": {
-              "coordinateX": 150,
-              "coordinateY": 55
-            },
-            "firstControlPoint": {
-              "coordinateX": 130,
-              "coordinateY": 60
-            },
-            "secondControlPoint": {
-              "coordinateX": 100,
-              "coordinateY": 60
-            }
-          },
-          "secondPoint": {
-            "coordinates": {
-              "coordinateX": 80,
-              "coordinateY": 55
-            },
-            "firstControlPoint": {
-              "coordinateX": 70,
-              "coordinateY": 50
-            },
-            "secondControlPoint": {
-              "coordinateX": 50,
-              "coordinateY": 45
-            }
-          }
-        }
-      ]
-    };*/
     const context = t.c.getContext("2d");
     context.beginPath();
     let firstPoint = {};
@@ -161,7 +156,7 @@ function Bezier_shape(options) {
       secondControlPoint = point.secondPoint.secondControlPoint;
     }
 
-    t.bezierShapePoints.points.forEach(processPoint);
+    t.bezierShapePoints.forEach(processPoint);
     endPoint = firstPoint;
     drawBezier();
 
