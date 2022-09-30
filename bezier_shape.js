@@ -103,7 +103,7 @@ function Bezier_shape(options) {
   };
 
   t.round_edges = function () {
-    for (let i = 0; i < t.points.length - 1; i++) {
+    for (let i = 0; i < t.points.length; i++) {
       const prev = i == 0 ? t.points[t.points.length - 1] : t.points[i - 1];
       const akt = t.points[i];
       const next = i == t.points.length - 1 ? t.points[0] : t.points[i + 1];
@@ -123,7 +123,7 @@ function Bezier_shape(options) {
 
       if (Math.abs(akt[1] - prev[1]) > Math.abs(akt[1] - next[1])) {
         hDirection = akt[0] - next[0] < 0 ? 1 : -1;
-        vDirection = prev[1] - next[1] > 0 || prev[0] - next[0] < 0 ? 1 : -1; // TODO
+        vDirection = prev[1] - next[1] < 0 || prev[0] - next[0] < 0 ? 1 : -1; // TODO
         dx2 = akt[0] + hDirection * (Math.abs(next[0] - akt[0]) / 2 * (1 / t.multiplier));
         dy2 = akt[1] + vDirection * t.roundingHeight;
       } else {
