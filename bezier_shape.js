@@ -102,7 +102,7 @@ function Bezier_shape(options) {
   ];
 
   t.multiplier = 3;
-  t.roundingHeight = 8;
+  t.roundingHeight = 10;
 
   t.init = function () {
     // rozdel text na spany
@@ -209,6 +209,8 @@ function Bezier_shape(options) {
       const prev = i == 0 ? t.points[t.points.length - 1] : t.points[i - 1];
       const akt = t.points[i];
       const next = i == t.points.length - 1 ? t.points[0] : t.points[i + 1];
+
+      // TODO vzorec ako multiplier ovplyvnuje vzdialenost od bodu "akt" treba este doladit
 
       var hDirection, vDirection, dx1, dy1, dx2, dy2;
       if (Math.abs(akt[1] - prev[1]) < Math.abs(akt[1] - next[1])) {
