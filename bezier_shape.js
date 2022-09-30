@@ -144,6 +144,7 @@ function Bezier_shape(options) {
       if (firstPoint.coordinateX  === undefined) {
         firstPoint = point.firstPoint.coordinates;
         context.moveTo(firstPoint.coordinateX, firstPoint.coordinateY);
+        console.log("firstPoint:" + firstPoint.coordinateX + ", " + firstPoint.coordinateY);
       } else {
         endPoint = point.firstPoint.coordinates;
         drawBezier();
