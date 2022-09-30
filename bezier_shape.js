@@ -102,7 +102,7 @@ function Bezier_shape(options) {
   ];
 
   t.multiplier = 3;
-  t.roundingHeight = 4;
+  t.roundingHeight = 8;
 
   t.init = function () {
     // rozdel text na spany
@@ -237,8 +237,37 @@ function Bezier_shape(options) {
 
       t.debug_points([[dx1, dy1]], "#bc0af8");
       t.debug_points([[dx2, dy2]], "#ff00f3");
-      t.bezierShapePoints.push([dx1, dy1]);
-      t.bezierShapePoints.push([dx2, dy2]);
+
+      t.bezierShapePoints.push(        {
+        "firstPoint": {
+          "coordinates": {
+            "coordinateX": dx1,
+            "coordinateY": dy1
+          },
+          "firstControlPoint": {
+            "coordinateX": dx1,
+            "coordinateY": dy1
+          },
+          "secondControlPoint": {
+            "coordinateX": dx1,
+            "coordinateY": dy1
+          }
+        },
+        "secondPoint": {
+          "coordinates": {
+            "coordinateX": dx2,
+            "coordinateY": dy2
+          },
+          "firstControlPoint": {
+            "coordinateX": dx2,
+            "coordinateY": dy2
+          },
+          "secondControlPoint": {
+            "coordinateX": dx2,
+            "coordinateY": dy2
+          }
+        }
+      },);
     }
   };
 
