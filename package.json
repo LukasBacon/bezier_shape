@@ -1,0 +1,16 @@
+{
+  "name": "bezier-shape",
+  "version": "1.0.0",
+  "dependencies": {
+    "create-javascript-project": "^1.8.0"
+  },
+  "scripts": {
+    "check:eslint": "eslint .",
+    "format": "prettier --write .",
+    "check:prettier": "prettier --check ."
+  },
+  "devDependencies": {
+    "eslint": "^8.24.0",
+    "prettier": "^2.7.1"
+  }
+}

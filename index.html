@@ -8,16 +8,16 @@
 </head>
 <style>
     h1  {
-        margin: 20px;
+        margin: 50px;
         font-size: 70px;
         font-family: sans-serif;
-        text-align: center;
+        text-align: right;
     }
     span    {
-        background-color: rgba(0, 0, 255, .2);
+       // background-color: rgba(0, 0, 255, .2);
     }
     canvas  {
-        background-color: rgba( 200, 0, 0, .2);
+      //  background-color: rgba( 200, 0, 0, .2);
         z-index: -1;
     }
 </style>
@@ -27,9 +27,9 @@
     <h1 id="shaper">Toto je super titulok, ktorý niekto editoval</h1>
 </div>
 
-<script src="bezier_shape.js"></script>
+<script src="bezier-shape.js"></script>
 <script>
-    const shape = new Bezier_shape({
+    new BezierShape({
         selector: 'shaper'
     } );
 </script>
